@@ -1,2 +1,2 @@
 # SimulacionPorComputadora
-##Alumno: Eduardo Rafael Pérez Flores
+## Alumno: Eduardo Rafael Pérez Flores
