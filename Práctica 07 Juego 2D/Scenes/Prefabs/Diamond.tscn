@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhoe7hgk1f2rd"]
+
+[ext_resource type="Texture2D" uid="uid://d385o275pkxfv" path="res://Resources/Treasure Hunters/Pirate Treasure/Sprites/Red Potion/07.png" id="1_d6bb4"]
+[ext_resource type="Texture2D" uid="uid://pdlppahkwvqm" path="res://Resources/Treasure Hunters/Pirate Treasure/Sprites/Diamond Effect/01.png" id="3_4t2vf"]
+[ext_resource type="AudioStream" uid="uid://cawcoh2uygw63" path="res://Assets/Audio/SFX/coin.wav" id="4_ybp00"]
+
+[sub_resource type="GDScript" id="GDScript_0tdc1"]
+script/source = "extends Area2D
+
+# You can change these to your likings
+@export var amplitude := 4
+@export var frequency := 5
+@onready var audio_player = $AudioStreamPlayer
+
+
+var time_passed = 0
+var initial_position := Vector2.ZERO
+
+func _ready():
+	
+	initial_position = position
+
+func _process(delta):
+	coin_hover(delta) # Call the coin_hover function
+
+# Coin Hover Animation
+func coin_hover(delta):
+	time_passed += delta
+	
+	var new_y = initial_position.y + amplitude * sin(frequency * time_passed)
+	position.y = new_y
+
+
+# Coin collected
+func _on_body_entered(body):
+	if body.is_in_group(\"Player\"):
+		audio_player.play()
+		var tween = create_tween()
+		tween.tween_property(self, \"scale\", Vector2.ZERO, 0.1)
+		await tween.finished
+		queue_free()
+		
+"
+
+[sub_resource type="Curve" id="Curve_yh7uo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.494709, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_kkhmu"]
+offsets = PackedFloat32Array(0.625, 1)
+colors = PackedColorArray(0.914063, 0.734375, 0, 1, 1, 1, 1, 0)
+
+[node name="Diamond" type="Area2D"]
+script = SubResource("GDScript_0tdc1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, -4)
+texture = ExtResource("1_d6bb4")
+region_rect = Rect2(520, 208, 48, 32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1, -2)
+polygon = PackedVector2Array(-8, -14, 8, -14, 18, -5, 18, -2, 2, 14, -1, 14, -17, -2, -17, -5)
+
+[node name="CoinSparkles" type="CPUParticles2D" parent="."]
+amount = 4
+texture = ExtResource("3_4t2vf")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 40.0
+damping_min = 0.5
+damping_max = 0.5
+scale_amount_min = 0.04
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_yh7uo")
+color_ramp = SubResource("Gradient_kkhmu")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ybp00")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

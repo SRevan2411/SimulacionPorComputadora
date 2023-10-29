@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bye511x1m4l74"]
+
+[ext_resource type="Script" path="res://Scenes/Managers/Timer.gd" id="1_cxw4v"]
+[ext_resource type="Script" path="res://Scenes/Managers/Node2D.gd" id="2_owbb0"]
+
+[node name="TimerManager" type="Node"]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("1_cxw4v")
+
+[node name="Node2D" type="Node2D" parent="Timer"]
+script = ExtResource("2_owbb0")
+
+[connection signal="timeout" from="Timer" to="Timer/Node2D" method="_on_timer_timeout"]
