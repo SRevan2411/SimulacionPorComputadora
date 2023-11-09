@@ -1,5 +1,5 @@
-Primera aplicación 2D 
-Nombre del juego: La codicia del marinero
+# Primera aplicación 2D 
+# Nombre del juego: La codicia del marinero
 
 ![Captura 1](https://github.com/SRevan2411/SimulacionPorComputadora-EduardoPerez/blob/main/Capturas/Práctica7/Captura1.jpg)
 ![Captura 2](https://github.com/SRevan2411/SimulacionPorComputadora-EduardoPerez/blob/main/Capturas/Práctica7/Captura2.jpg)
