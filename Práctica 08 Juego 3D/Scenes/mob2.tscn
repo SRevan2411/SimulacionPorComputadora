@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkuph4ss0vs0d"]
+
+[ext_resource type="PackedScene" uid="uid://dgexlbo2ivgwf" path="res://Scenes/crab.tscn" id="2_80w3y"]
+[ext_resource type="AudioStream" uid="uid://cjnxcsc05o52i" path="res://Music/Fx/Jump.wav" id="3_c6rjq"]
+
+[sub_resource type="GDScript" id="GDScript_lm4i0"]
+script/source = "extends CharacterBody3D
+
+@export var min_speed = 20
+@export var max_speed = 28
+
+@onready var SquashPlayer = $AudioPlayr
+
+func _physics_process(_delta):
+	move_and_slide()
+	
+# This function will be called from the Main scene.
+func initialize(start_position, player_position):
+	# We position the mob by placing it at start_position
+	# and rotate it towards player_position, so it looks at the player.
+	look_at_from_position(start_position, player_position, Vector3.UP)
+	# Rotate this mob randomly within range of -90 and +90 degrees,
+	# so that it doesn't move directly towards the player.
+	rotate_y(randf_range(-PI / 4, PI / 4))
+	
+# We calculate a random speed (integer)
+	var random_speed = randi_range(min_speed, max_speed)
+	# We calculate a forward velocity that represents the speed.
+	velocity = Vector3.FORWARD * random_speed
+	# We then rotate the velocity vector based on the mob's Y rotation
+	# in order to move in the direction the mob is looking.
+	velocity = velocity.rotated(Vector3.UP, rotation.y)
+
+
+func _on_visible_on_screen_notifier_3d_screen_exited():
+	queue_free()
+	
+
+signal squashed
+
+func squash():
+	SquashPlayer.play()
+	squashed.emit()
+	queue_free()	
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st854"]
+size = Vector3(1.29881, 0.919455, 1.97149)
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
+script = SubResource("GDScript_lm4i0")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Crab" parent="Pivot" instance=ExtResource("2_80w3y")]
+transform = Transform3D(-0.999731, 0, -0.0232107, 0, 1, 0, 0.0232107, 0, -0.999731, 0, -0.0933396, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490175, 0)
+shape = SubResource("BoxShape3D_st854")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.725634, 0, 0, 0, 1, 0, 0.332077, 0)
+aabb = AABB(-1.16965, -1, -2.00489, 2.3393, 2, 4.00978)
+
+[node name="AudioPlayr" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_c6rjq")
+bus = &"FxBus"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

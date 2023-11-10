@@ -1,0 +1,15 @@
+res://Scenes/Coin.tscn
+res://Scenes/main.tscn
+res://Scenes/player.gd
+res://Scenes/Lose.tscn
+res://Scenes/mob.tscn
+res://Scenes/player.tscn
+res://Scenes/main.gd
+res://Scenes/Coin.gd
+res://Manager/MusicManager.tscn
+res://Manager/GameManager.gd
+res://Scenes/ScoreLabel.gd
+res://Scenes/stage2.tscn
+res://Scenes/TimeLabel.gd
+res://Scenes/Rock.tscn
+res://Scenes/Lose.gd

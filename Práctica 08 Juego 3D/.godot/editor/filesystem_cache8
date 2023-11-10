@@ -1,0 +1,74 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1699576651
+default_bus_layout.tres::AudioBusLayout::997107271154865422::1699138073::0::1::::<><>::
+default_env.tres::Environment::-1::1699110613::0::1::::<><>::
+icon.png::CompressedTexture2D::3421004551041841058::1606009720::1699110631::1::::<><>::
+::res://3D Assets/::1699571333
+::res://3D Assets/Character/::1699133479
+Character.gltf::PackedScene::3462216895963543973::1639327326::1699133479::1::::<><>::
+::res://3D Assets/Enemiee/::1699141130
+Bee.gltf::PackedScene::1308478958975559806::1639335115::1699134841::1::::<><>::uid://c7djyag7ywtkr
+Crab.gltf::PackedScene::4109075752861420130::1639333401::1699141130::1::::<><>::
+::res://3D Assets/Items/::1699571385
+Coin.gltf::PackedScene::4702451085570038305::1639336679::1699571385::1::::<><>::
+::res://3D Assets/World/::1699574497
+Bush.gltf::PackedScene::6790329578077162958::1639336564::1699141723::1::::<><>::
+Bush_Fruit.gltf::PackedScene::3433193347875628993::1639336567::1699574033::1::::<><>::
+Cube_Bricks.glb::PackedScene::992748736595555286::1699137442::1699137459::1::::<><>::
+Cube_Dirt_Corner_Tall.gltf::PackedScene::1662389646403091712::1639336342::1699574497::1::::<><>::
+Cube_Grass_Single.gltf::PackedScene::3350903621738997909::1639335805::1699141723::1::::<><>::
+Rock_2.gltf::PackedScene::6798582152068868591::1639336596::1699574033::1::::<><>::
+Tree.gltf::PackedScene::7270885316257453175::1639336616::1699574033::1::::<><>::
+::res://Animations/::1699141213
+Crabbing.res::Animation::2648270897838921579::1699141130::0::1::::<><>::
+CrabWalk.res::Animation::7471074311384519249::1699141213::0::1::::<><>::
+Death.res::Animation::5821793293647293764::1699133453::0::1::::<><>::
+Flying.res::Animation::7025666819809752545::1699134912::0::1::::<><>::
+Idle.res::Animation::4236557290576390151::1699133453::0::1::::<><>::
+walk.res::Animation::164073724958572357::1699133453::0::1::::<><>::
+::res://art/::1699110633
+body.material::StandardMaterial3D::-1::1605908508::0::1::::<><>::
+eye.material::StandardMaterial3D::-1::1606514142::0::1::::<><>::
+House In a Forest Loop.ogg::AudioStreamOggVorbis::1086516179367174853::1580874009::1699110631::1::::<><>::
+mob.glb::PackedScene::5206701280504990476::1606513980::1699110633::1::::<><>::
+mob_body.material::StandardMaterial3D::-1::1606514142::0::1::::<><>::
+mob_eye.material::StandardMaterial3D::-1::1605969815::0::1::::<><>::
+player.glb::PackedScene::3013896745431856839::1606514058::1699110633::1::::<><>::
+pupil.material::StandardMaterial3D::-1::1606514142::0::1::::<><>::
+::res://fonts/::1699110631
+LICENSE.txt::TextFile::-1::1605988452::0::1::::<><>::
+Montserrat-Medium.ttf::FontFile::7634343004358276324::1323702000::1699110631::1::::<><>::
+::res://Manager/::1699575887
+GameManager.gd::GDScript::-1::1699575887::0::1::::<>Node<>::
+MusicManager.tscn::PackedScene::60916149086035164::1699573484::0::1::::<><>::uid://c8x4myh3hf17b::::res://Music/punch-deck-brazilian-street-fight(chosic.com).mp3
+::res://Music/::1699138164
+punch-deck-brazilian-street-fight(chosic.com).mp3::AudioStreamMP3::7138337390757540097::1699137921::1699137969::1::::<><>::
+::res://Music/Fx/::1699575028
+coin.wav::AudioStreamWAV::4150462225838443255::1698513753::1699575028::1::::<><>::
+Jump.wav::AudioStreamWAV::5432778883039182086::1699138148::1699138169::1::::<><>::
+Squashd.wav::AudioStreamWAV::5694649473783073919::1699138368::1699138418::1::::<><>::
+::res://Scenes/::1699576896
+bee.tscn::PackedScene::1364007344734039186::1699142550::0::1::::<><>::uid://sv3psvb7hqbe::::res://3D Assets/Enemiee/Bee.gltf
+character.tscn::PackedScene::5317592771550771056::1699141568::0::1::::<><>::uid://bplehav6ut5m4::::res://3D Assets/Character/Character.gltf
+crab.tscn::PackedScene::7590068833879211281::1699142550::0::1::::<><>::uid://bysp43fv100uo::::res://3D Assets/Enemiee/Crab.gltf
+Lose.tscn::PackedScene::5781196989710537505::1699576896::0::1::::<><>::res://Scenes/Lose.gd<>uid://c0nm7porijid2::::res://Splash/EndImage/Background.png
+main.gd::GDScript::-1::1699573227::0::1::::<>Node<>::
+main.tscn::PackedScene::260203912694159726::1699576896::0::1::::<><>::res://Scenes/main.gd<>uid://b5jlg8eo5bvd8::::res://Scenes/player.tscn<>uid://doinymdq5kuuu::::res://Scenes/mob.tscn<>uid://oe5orha35rxu::::res://3D Assets/World/Cube_Bricks.glb<>res://Scenes/ScoreLabel.gd<>res://Manager/GameManager.gd<>res://Scenes/TimeLabel.gd<>res://Scenes/PowerUp.gd<>uid://b0errhqjlx6k6::::res://Music/Fx/coin.wav<>uid://du5ne6bq2tvip::::res://Scenes/Coin.tscn<>uid://bo6cgs6r7v0n2::::res://3D Assets/World/Bush_Fruit.gltf<>uid://bcqke055iqt1o::::res://Scenes/Rock.tscn<>uid://dbucoihh5d3hb::::res://3D Assets/World/Tree.gltf
+mob2.tscn::PackedScene::7903362849825380501::1699142550::0::1::::<><>::uid://dgexlbo2ivgwf::::res://Scenes/crab.tscn<>uid://cjnxcsc05o52i::::res://Music/Fx/Jump.wav
+mob.gd::GDScript::-1::1699141499::0::1::::<>CharacterBody3D<>::
+mob.tscn::PackedScene::8159253699686004988::1699576896::0::1::::<><>::res://Scenes/mob.gd<>uid://to0ab7gejtli::::res://Scenes/bee.tscn<>uid://cjnxcsc05o52i::::res://Music/Fx/Jump.wav
+player.gd::GDScript::-1::1699576109::0::1::::<>CharacterBody3D<>::
+player.tscn::PackedScene::4511345734430493187::1699576896::0::1::::<><>::res://Scenes/player.gd<>uid://ch048gkf60x65::::res://Scenes/character.tscn<>uid://cjnxcsc05o52i::::res://Music/Fx/Jump.wav<>uid://cnesbr3f7232b::::res://Music/Fx/Squashd.wav
+PowerUp.gd::GDScript::-1::1699140302::0::1::::<>Label<>::
+Coin.tscn::PackedScene::8625768351075805819::1699576896::0::1::::<><>::res://Scenes/Coin.gd<>uid://b785xg12bals8::::res://3D Assets/Items/Coin.gltf<>uid://b0errhqjlx6k6::::res://Music/Fx/coin.wav
+Coin.gd::GDScript::-1::1699575112::0::1::::<>Node3D<>::
+Lose.gd::GDScript::-1::1699576343::0::1::::<>Control<>::
+Rock.tscn::PackedScene::2560444088939697678::1699576896::0::1::::<><>::uid://c34jwi5wn8736::::res://3D Assets/World/Rock_2.gltf
+ScoreLabel.gd::GDScript::-1::1699575458::0::1::::<>Label<>::
+stage2.tscn::PackedScene::7340824607181893361::1699576896::0::1::::<><>::res://Scenes/main.gd<>uid://dkuph4ss0vs0d::::res://Scenes/mob2.tscn<>uid://xxjkxw70xyvo::::res://3D Assets/World/Cube_Dirt_Corner_Tall.gltf<>uid://b5jlg8eo5bvd8::::res://Scenes/player.tscn<>uid://b0errhqjlx6k6::::res://Music/Fx/coin.wav<>res://Scenes/PowerUp.gd<>res://Manager/GameManager.gd<>uid://bcqke055iqt1o::::res://Scenes/Rock.tscn<>uid://c30j0a5swrbis::::res://3D Assets/World/Bush.gltf<>uid://du5ne6bq2tvip::::res://Scenes/Coin.tscn<>uid://dbucoihh5d3hb::::res://3D Assets/World/Tree.gltf
+TimeLabel.gd::GDScript::-1::1699573718::0::1::::<>Label<>::
+::res://Splash/::1699576660
+::res://Splash/EndImage/::1699576670
+Background.png::CompressedTexture2D::6555185928718913033::1699576628::1699576670::1::::<><>::
+::res://Splash/LoadImage/::1699577807
+Splash.png::CompressedTexture2D::1323911575311000532::1699577807::1699577834::1::::<><>::

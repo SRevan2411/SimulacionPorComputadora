@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5jlg8eo5bvd8"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_gjkgl"]
+[ext_resource type="PackedScene" uid="uid://ch048gkf60x65" path="res://Scenes/character.tscn" id="2_gpxxs"]
+[ext_resource type="AudioStream" uid="uid://cjnxcsc05o52i" path="res://Music/Fx/Jump.wav" id="3_irr56"]
+[ext_resource type="AudioStream" uid="uid://cnesbr3f7232b" path="res://Music/Fx/Squashd.wav" id="4_02a0u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_reh42"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kupnj"]
+radius = 1.28287
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_mask = 6
+script = ExtResource("1_gjkgl")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("2_gpxxs")]
+transform = Transform3D(-0.996939, 0, -0.0781807, 0, 1, 0, 0.0781807, 0, -0.996939, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0.905745, 0)
+shape = SubResource("SphereShape3D_reh42")
+
+[node name="MobDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79977, 0)
+shape = SubResource("CylinderShape3D_kupnj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_irr56")
+bus = &"FxBus"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_02a0u")
+volume_db = 6.559
+bus = &"FxBus"
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]

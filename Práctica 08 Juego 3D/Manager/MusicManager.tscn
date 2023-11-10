@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://4rjr1c7p7iu"]
+
+[ext_resource type="AudioStream" uid="uid://c8x4myh3hf17b" path="res://Music/punch-deck-brazilian-street-fight(chosic.com).mp3" id="1_653o6"]
+
+[node name="MusicManager" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_653o6")
+autoplay = true
+bus = &"MusicBus"

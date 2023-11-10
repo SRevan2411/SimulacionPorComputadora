@@ -1,0 +1,284 @@
+[gd_scene load_steps=19 format=3 uid="uid://dct7kq68wm474"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_7jy58"]
+[ext_resource type="PackedScene" uid="uid://dkuph4ss0vs0d" path="res://Scenes/mob2.tscn" id="2_prmvp"]
+[ext_resource type="PackedScene" uid="uid://xxjkxw70xyvo" path="res://3D Assets/World/Cube_Dirt_Corner_Tall.gltf" id="3_ibn5q"]
+[ext_resource type="PackedScene" uid="uid://b5jlg8eo5bvd8" path="res://Scenes/player.tscn" id="4_wib14"]
+[ext_resource type="AudioStream" uid="uid://b0errhqjlx6k6" path="res://Music/Fx/coin.wav" id="6_2edqe"]
+[ext_resource type="Script" path="res://Scenes/PowerUp.gd" id="7_xiqj4"]
+[ext_resource type="Script" path="res://Manager/GameManager.gd" id="8_cbqnv"]
+[ext_resource type="PackedScene" uid="uid://bcqke055iqt1o" path="res://Scenes/Rock.tscn" id="8_lsp8r"]
+[ext_resource type="PackedScene" uid="uid://c30j0a5swrbis" path="res://3D Assets/World/Bush.gltf" id="9_8ibno"]
+[ext_resource type="PackedScene" uid="uid://du5ne6bq2tvip" path="res://Scenes/Coin.tscn" id="9_bjfep"]
+[ext_resource type="PackedScene" uid="uid://dbucoihh5d3hb" path="res://3D Assets/World/Tree.gltf" id="10_io0d0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oe5ea"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yhpi3"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuth7"]
+albedo_color = Color(0.933333, 0.509804, 0.0313726, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sw2of"]
+material = SubResource("StandardMaterial3D_tuth7")
+
+[sub_resource type="Curve3D" id="Curve3D_0hqud"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -11.0795, 0, -10.9234, 0, 0, 0, 0, 0, 0, 12.9374, 0, -10.8786, 0, 0, 0, 0, 0, 0, 12.0879, 0, 15.9405, 0, 0, 0, 0, 0, 0, -11.9995, 0, 15.9405, 0, 0, 0, 0, 0, 0, -11.0795, 0, -10.9234),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="GDScript" id="GDScript_4qsum"]
+script/source = "extends Label
+
+@onready var CoinPlayer = $\"../CoinPlayer\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	text = \"Puntaje: %s\" % GameManager.Score
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _on_mob_squashed():
+	GameManager.addScore()
+	text = \"Puntaje: %s\" % GameManager.Score
+
+func _on_coin_picked():
+	CoinPlayer.play()
+	text = \"Puntaje: %s\" % GameManager.Score
+	pass
+
+
+func _on_coin_2_picked():
+	CoinPlayer.play()
+	text = \"Puntaje: %s\" % GameManager.Score
+	pass # Replace with function body.
+
+
+func _on_coin_3_picked():
+	CoinPlayer.play()
+	text = \"Puntaje: %s\" % GameManager.Score
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_oyrte"]
+script/source = "extends Label
+
+signal Power
+
+var counter = 0
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	text = \"Tiempo: %s\" % GameManager.Counter
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_level_timer_timeout():
+	GameManager.addTime()
+	if GameManager.Counter % 6 == 0:
+		Power.emit()
+	if GameManager.Counter % 10 == 0:
+		get_tree().change_scene_to_file(\"res://Scenes/main.tscn\")
+	text = \"Tiempo: %s\" % GameManager.Counter
+	pass # Replace with function body.
+"
+
+[node name="Main" type="Node"]
+script = ExtResource("1_7jy58")
+mob_scene = ExtResource("2_prmvp")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_oe5ea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_yhpi3")
+
+[node name="Cube_Dirt_Corner_Tall" parent="Ground/MeshInstance3D" instance=ExtResource("3_ibn5q")]
+transform = Transform3D(20, 0, 0, 0, -8.74228e-07, 20, 0, -20, -8.74228e-07, 0, -18, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.07101, 0.997476, 0, -0.997476, 0.07101, 0, 10.3554, 0)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.623771, 0.781608, 0, -0.781608, 0.623771, 0, 11.7346, 11.0526)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+projection = 1
+size = 19.0
+
+[node name="Cylinders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -11)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 27)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 27)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_0hqud")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(-0.00186531, 0, -0.999998, 0, 1, 0, 0.999998, 0, -0.00186531, -11.0795, 0, -10.9234)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("4_wib14")]
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 27
+text = "Puntaje: 0"
+script = SubResource("GDScript_4qsum")
+
+[node name="TimeLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 54.0
+offset_right = 44.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Tiempo: 0"
+script = SubResource("GDScript_oyrte")
+
+[node name="PowerUp" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 4.0
+offset_right = 274.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.972549, 0.937255, 0.933333, 1)
+theme_override_font_sizes/font_size = 24
+script = ExtResource("7_xiqj4")
+
+[node name="CoinPlayer" type="AudioStreamPlayer3D" parent="UserInterface"]
+stream = ExtResource("6_2edqe")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("8_cbqnv")
+
+[node name="LevelTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Bush" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.25203, 0, 13.6783)
+
+[node name="Bush2" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.09917, 0, 12.511)
+
+[node name="Bush3" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11493, 0, -8.17647)
+
+[node name="Bush4" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35857, 0, -5.32662)
+
+[node name="Bush5" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.670676, 0, 3.56988)
+
+[node name="Bush6" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 8)
+
+[node name="Bush7" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 3)
+
+[node name="Bush8" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -2)
+
+[node name="Bush9" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -8)
+
+[node name="Bush10" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="Bush11" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -8)
+
+[node name="Bush12" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -2)
+
+[node name="Bush13" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 3)
+
+[node name="Bush14" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 14)
+
+[node name="Bush15" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 14)
+
+[node name="Bush16" parent="." instance=ExtResource("9_8ibno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+
+[node name="Rock" parent="." instance=ExtResource("8_lsp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 5)
+
+[node name="Rock2" parent="." instance=ExtResource("8_lsp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -1)
+
+[node name="Coin" parent="." instance=ExtResource("9_bjfep")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 6, 1, -2)
+
+[node name="Coin2" parent="." instance=ExtResource("9_bjfep")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -5, 1, 3)
+
+[node name="Coin3" parent="." instance=ExtResource("9_bjfep")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 8, 0, 6)
+
+[node name="Tree" parent="." instance=ExtResource("10_io0d0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -7)
+
+[node name="Tree2" parent="." instance=ExtResource("10_io0d0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -5)
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="UnPower" from="Player" to="UserInterface/PowerUp" method="_on_player_un_power"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="Power" from="UserInterface/TimeLabel" to="Player" method="_on_time_label_power"]
+[connection signal="Power" from="UserInterface/TimeLabel" to="UserInterface/PowerUp" method="_on_time_label_power"]
+[connection signal="timeout" from="LevelTimer" to="UserInterface/TimeLabel" method="_on_level_timer_timeout"]
+[connection signal="picked" from="Coin" to="UserInterface/ScoreLabel" method="_on_coin_picked"]
+[connection signal="picked" from="Coin2" to="UserInterface/ScoreLabel" method="_on_coin_2_picked"]
+[connection signal="picked" from="Coin3" to="UserInterface/ScoreLabel" method="_on_coin_3_picked"]

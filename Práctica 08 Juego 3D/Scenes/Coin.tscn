@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://du5ne6bq2tvip"]
+
+[ext_resource type="Script" path="res://Scenes/Coin.gd" id="1_4uver"]
+[ext_resource type="PackedScene" uid="uid://b785xg12bals8" path="res://3D Assets/Items/Coin.gltf" id="1_evtr3"]
+[ext_resource type="AudioStream" uid="uid://b0errhqjlx6k6" path="res://Music/Fx/coin.wav" id="3_xgdbk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bllla"]
+size = Vector3(2.11391, 2.98302, 1.87772)
+
+[node name="Coin" type="Node3D" groups=["Coin"]]
+script = ExtResource("1_4uver")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Coin" parent="Pivot" instance=ExtResource("1_evtr3")]
+transform = Transform3D(0.578258, 0, 0, 0, 0.545707, 0, 0, 0, 0.742476, 0, 0.566606, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_bllla")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_xgdbk")
+max_distance = 39.01
+bus = &"FxBus"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://to0ab7gejtli"]
+
+[ext_resource type="PackedScene" uid="uid://sv3psvb7hqbe" path="res://3D Assets/Enemiee/Bee.gltf" id="1_1cxgt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mp22l"]
+animation = &"Flying"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xeicj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_i0pdj"]
+states/Flying/node = SubResource("AnimationNodeAnimation_mp22l")
+states/Flying/position = Vector2(351, 74)
+transitions = ["Start", "Flying", SubResource("AnimationNodeStateMachineTransition_xeicj")]
+
+[node name="Bee" instance=ExtResource("1_1cxgt")]
+
+[node name="Skeleton3D" parent="MonsterArmature" index="0"]
+bones/0/position = Vector3(0, 0.0242198, 0)
+bones/2/position = Vector3(0, 0.600081, 0)
+bones/6/rotation = Quaternion(-0.0277455, -0.0767266, -0.338931, 0.937267)
+bones/8/rotation = Quaternion(-0.0277455, 0.0767266, 0.338931, 0.937267)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_i0pdj")
+anim_player = NodePath("../AnimationPlayer")
+active = true

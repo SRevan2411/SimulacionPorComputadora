@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://doinymdq5kuuu"]
+
+[ext_resource type="Script" path="res://Scenes/mob.gd" id="1_ux048"]
+[ext_resource type="PackedScene" uid="uid://to0ab7gejtli" path="res://Scenes/bee.tscn" id="2_nvuah"]
+[ext_resource type="AudioStream" uid="uid://cjnxcsc05o52i" path="res://Music/Fx/Jump.wav" id="3_6afbm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st854"]
+size = Vector3(1.29881, 0.919455, 1.97149)
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ux048")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("2_nvuah")]
+transform = Transform3D(-0.999731, 0, -0.0232107, 0, 1, 0, 0.0232107, 0, -0.999731, 0, -0.0933396, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490175, 0)
+shape = SubResource("BoxShape3D_st854")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.725634, 0, 0, 0, 1, 0, 0.332077, 0)
+aabb = AABB(-1.16965, -1, -2.00489, 2.3393, 2, 4.00978)
+
+[node name="AudioPlayr" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6afbm")
+bus = &"FxBus"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

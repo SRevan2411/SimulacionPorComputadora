@@ -1,0 +1,228 @@
+[gd_scene load_steps=19 format=3 uid="uid://dybrxu20emug"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_aeqdv"]
+[ext_resource type="PackedScene" uid="uid://b5jlg8eo5bvd8" path="res://Scenes/player.tscn" id="1_wx5f2"]
+[ext_resource type="PackedScene" uid="uid://doinymdq5kuuu" path="res://Scenes/mob.tscn" id="2_sd0cu"]
+[ext_resource type="PackedScene" uid="uid://oe5orha35rxu" path="res://3D Assets/World/Cube_Bricks.glb" id="3_h2a6w"]
+[ext_resource type="Script" path="res://Scenes/ScoreLabel.gd" id="4_usb7r"]
+[ext_resource type="Script" path="res://Manager/GameManager.gd" id="5_dj1n5"]
+[ext_resource type="Script" path="res://Scenes/TimeLabel.gd" id="6_2ykgs"]
+[ext_resource type="Script" path="res://Scenes/PowerUp.gd" id="7_wap2o"]
+[ext_resource type="AudioStream" uid="uid://b0errhqjlx6k6" path="res://Music/Fx/coin.wav" id="8_apyfg"]
+[ext_resource type="PackedScene" uid="uid://du5ne6bq2tvip" path="res://Scenes/Coin.tscn" id="9_0dstp"]
+[ext_resource type="PackedScene" uid="uid://bo6cgs6r7v0n2" path="res://3D Assets/World/Bush_Fruit.gltf" id="10_5y6ju"]
+[ext_resource type="PackedScene" uid="uid://bcqke055iqt1o" path="res://Scenes/Rock.tscn" id="11_08fwh"]
+[ext_resource type="PackedScene" uid="uid://dbucoihh5d3hb" path="res://3D Assets/World/Tree.gltf" id="12_tvwge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oe5ea"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yhpi3"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuth7"]
+albedo_color = Color(0.933333, 0.509804, 0.0313726, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sw2of"]
+material = SubResource("StandardMaterial3D_tuth7")
+
+[sub_resource type="Curve3D" id="Curve3D_0hqud"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -11.0795, 0, -10.9234, 0, 0, 0, 0, 0, 0, 12.9374, 0, -10.8786, 0, 0, 0, 0, 0, 0, 12.0879, 0, 15.9405, 0, 0, 0, 0, 0, 0, -11.9995, 0, 15.9405, 0, 0, 0, 0, 0, 0, -11.0795, 0, -10.9234),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_aeqdv")
+mob_scene = ExtResource("2_sd0cu")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0424862, 0)
+shape = SubResource("BoxShape3D_oe5ea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.294487, 0)
+mesh = SubResource("BoxMesh_yhpi3")
+
+[node name="Cube_Bricks" parent="Ground/MeshInstance3D" instance=ExtResource("3_h2a6w")]
+transform = Transform3D(1.56069, 0, 0, 0, 1, 0, 0, 0, 1.94067, 0, -0.537846, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.07101, 0.997476, 0, -0.997476, 0.07101, 0, 10.3554, 0)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.623771, 0.781608, 0, -0.781608, 0.623771, 0, 11.7346, 11.0526)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+projection = 1
+size = 19.0
+
+[node name="Cylinders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -11)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 27)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 27)
+mesh = SubResource("CylinderMesh_sw2of")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_0hqud")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(-0.00186531, 0, -0.999998, 0, 1, 0, 0.999998, 0, -0.00186531, -11.0795, 0, -10.9234)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("1_wx5f2")]
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 27
+text = "Puntaje: 0"
+script = ExtResource("4_usb7r")
+
+[node name="TimeLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 54.0
+offset_right = 44.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Tiempo: 0"
+script = ExtResource("6_2ykgs")
+
+[node name="PowerUp" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 4.0
+offset_right = 274.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.972549, 0.937255, 0.933333, 1)
+theme_override_font_sizes/font_size = 24
+script = ExtResource("7_wap2o")
+
+[node name="CoinPlayer" type="AudioStreamPlayer3D" parent="UserInterface"]
+stream = ExtResource("8_apyfg")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5_dj1n5")
+
+[node name="LevelTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Coin" parent="." instance=ExtResource("9_0dstp")]
+transform = Transform3D(1, 0, 0, 0, 0.647335, 0.762205, 0, -0.762205, 0.647335, 3.06699, 0.579117, 6.08009)
+
+[node name="Coin2" parent="." instance=ExtResource("9_0dstp")]
+transform = Transform3D(1, 0, 0, 0, 0.539726, 0.841841, 0, -0.841841, 0.539726, -8.16379, 0.261186, 2.90288)
+
+[node name="Coin3" parent="." instance=ExtResource("9_0dstp")]
+transform = Transform3D(1, 0, 0, 0, 0.920607, 0.39049, 0, -0.39049, 0.920607, 5.88284, 0.671261, -5.11232)
+
+[node name="Bush_Fruit" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7376, -0.0424862, 12.3159)
+
+[node name="Bush_Fruit2" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.70706, -0.0424862, 12.7465)
+
+[node name="Bush_Fruit3" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.32242, -0.0424862, 12.9401)
+
+[node name="Bush_Fruit4" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59178, -0.0424862, 12.8686)
+
+[node name="Bush_Fruit5" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1307, -0.0424862, 12.6849)
+
+[node name="Bush_Fruit6" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.71607, -0.0424862, 13.0685)
+
+[node name="Bush_Fruit7" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6859, -0.0424862, 12.8276)
+
+[node name="Rock" parent="." instance=ExtResource("11_08fwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7624, -0.0424862, 6.55207)
+
+[node name="Rock2" parent="." instance=ExtResource("11_08fwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.42737, -0.0424862, 0.359037)
+
+[node name="Rock3" parent="." instance=ExtResource("11_08fwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52242, -0.0424862, -5.63944)
+
+[node name="Bush_Fruit8" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0779, -0.0424862, -8.81506)
+
+[node name="Bush_Fruit9" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.55796, -0.0424862, -9.00875)
+
+[node name="Bush_Fruit10" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72851, -0.0424862, -9.16104)
+
+[node name="Bush_Fruit11" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44145, -0.0424862, -9.34076)
+
+[node name="Bush_Fruit12" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.48634, -0.0424862, -9.52935)
+
+[node name="Bush_Fruit13" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0356, -0.0424862, -9.73983)
+
+[node name="Bush_Fruit14" parent="." instance=ExtResource("10_5y6ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5102, -0.0424862, -8.95422)
+
+[node name="Tree" parent="." instance=ExtResource("12_tvwge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2937, -0.0424862, 8.4024)
+
+[node name="Tree2" parent="." instance=ExtResource("12_tvwge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4348, -0.0424862, -0.581287)
+
+[node name="Tree3" parent="." instance=ExtResource("12_tvwge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4047, -0.0424862, 8.75568)
+
+[node name="Tree4" parent="." instance=ExtResource("12_tvwge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4349, -0.0424862, -1.72981)
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="Picked" from="Player" to="." method="_on_player_picked"]
+[connection signal="UnPower" from="Player" to="UserInterface/PowerUp" method="_on_player_un_power"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="Power" from="UserInterface/TimeLabel" to="Player" method="_on_time_label_power"]
+[connection signal="Power" from="UserInterface/TimeLabel" to="UserInterface/PowerUp" method="_on_time_label_power"]
+[connection signal="timeout" from="LevelTimer" to="UserInterface/TimeLabel" method="_on_level_timer_timeout"]
+[connection signal="picked" from="Coin" to="." method="_on_coin_picked"]
+[connection signal="picked" from="Coin" to="UserInterface/ScoreLabel" method="_on_coin_picked"]
+[connection signal="picked" from="Coin2" to="UserInterface/ScoreLabel" method="_on_coin_2_picked"]
+[connection signal="picked" from="Coin3" to="UserInterface/ScoreLabel" method="_on_coin_3_picked"]

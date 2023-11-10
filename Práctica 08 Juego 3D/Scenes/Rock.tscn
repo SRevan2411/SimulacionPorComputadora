@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcqke055iqt1o"]
+
+[ext_resource type="PackedScene" uid="uid://c34jwi5wn8736" path="res://3D Assets/World/Rock_2.gltf" id="1_5bdx1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ore3p"]
+height = 1.98229
+radius = 1.14149
+
+[node name="Rock" type="StaticBody3D"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.938634, 0)
+shape = SubResource("CylinderShape3D_ore3p")
+
+[node name="Rock_2" parent="." instance=ExtResource("1_5bdx1")]

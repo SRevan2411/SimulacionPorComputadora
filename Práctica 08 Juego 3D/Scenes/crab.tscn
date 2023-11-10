@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgexlbo2ivgwf"]
+
+[ext_resource type="PackedScene" uid="uid://bysp43fv100uo" path="res://3D Assets/Enemiee/Crab.gltf" id="1_xcbsh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2w33m"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ltxiw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1fqat"]
+states/Walk/node = SubResource("AnimationNodeAnimation_2w33m")
+states/Walk/position = Vector2(387, 100)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_ltxiw")]
+
+[node name="Crab" instance=ExtResource("1_xcbsh")]
+
+[node name="Skeleton3D" parent="MonsterArmature" index="0"]
+bones/0/position = Vector3(0, 0.103665, 0.168057)
+bones/0/rotation = Quaternion(-0.0893919, 8.92245e-26, -1.93065e-17, 0.995997)
+bones/1/position = Vector3(-0.00328261, 0.118653, 0.360052)
+bones/2/position = Vector3(0, 0.488645, 0)
+bones/2/rotation = Quaternion(-0.00793505, -3.87762e-27, 8.5063e-18, 0.999969)
+bones/4/rotation = Quaternion(-0.0899975, 0, 3.19233e-11, 0.995942)
+bones/5/position = Vector3(-0.501702, 0.439107, 0.451245)
+bones/6/position = Vector3(0.501702, 0.439107, 0.451245)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_1fqat")
+anim_player = NodePath("../AnimationPlayer")
+active = true
